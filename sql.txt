@@ -1,0 +1,56 @@
+CREATE DATABASE railwayssss;
+
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `firstname` VARCHAR(25) NOT NULL,
+    `lastname` VARCHAR(25) NOT NULL,
+    `email` VARCHAR(25) NOT NULL,
+    `password` VARCHAR(25) NOT NULL,
+    `phonenumber` VARCHAR(10) NOT NULL,
+    `gender` ENUM('male', 'female', 'other') NOT NULL,
+    `maritalStatus` ENUM('single', 'married', 'divorced', 'widowed') NOT NULL,
+    `dob` DATE NOT NULL,
+    `pincode` VARCHAR(10) NOT NULL,
+    `irctcUsername` VARCHAR(25) NOT NULL,
+    `securityQues` VARCHAR(25) NOT NULL,
+    `securityAns` VARCHAR(25) NOT NULL
+);
+
+
+
+USE railwayssss; 
+
+-- Create bookings table
+CREATE TABLE IF NOT EXISTS bookings (
+    pnr INT PRIMARY KEY,
+    user_id INT,
+    source VARCHAR(25) NOT NULL,
+    destination VARCHAR(25) NOT NULL,
+    date DATE NOT NULL,
+    seat_number INT NOT NULL,
+    class VARCHAR(25) NOT NULL,
+    train_number INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Create passengers table
+CREATE TABLE IF NOT EXISTS passengers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_pnr INT,
+    name VARCHAR(25) NOT NULL,
+    age INT NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    FOREIGN KEY (booking_pnr) REFERENCES bookings(pnr)
+);
+
+
+--Admin_login table
+CREATE TABLE IF NOT EXISTS admin_users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(25) NOT NULL,
+    password VARCHAR(25) NOT NULL
+);
+
+--entering into admin_login table
+INSERT INTO admin_user (username, password) VALUES
+('Shivam', 'soni2003');
